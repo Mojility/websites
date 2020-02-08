@@ -1,6 +1,6 @@
 import React from "react"
 
-import Layout from "../components/layout"
+import Layout from "mojility.ca/src/components/layout"
 import SEO from "theme/src/components/seo"
 
 const ContactPage = () => (

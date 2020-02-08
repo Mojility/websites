@@ -1,6 +1,6 @@
 import React from "react"
 
-import Layout from "../components/layout"
+import Layout from "mojility.ca/src/components/layout"
 import SEO from "theme/src/components/seo"
 import { useStaticQuery, graphql } from "gatsby"
 import Img from "gatsby-image"
@@ -24,7 +24,7 @@ const AboutPage = () => {
       <div>
         <h2>About Mojility Inc.</h2>
         <p>
-          Mojility was founded as Three Wise Men, started by Stacey Vetzal in 2002 in Oshawa, Ontario.
+          Mojility was founded as  Three Wise Men, started by Stacey Vetzal in 2002 in Oshawa, Ontario.
         </p>
         <p>
           For 17 years we have serviced Durham Region and the Greater Toronto Area as a software consultancy. Over that

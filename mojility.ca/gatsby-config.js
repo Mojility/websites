@@ -1,3 +1,5 @@
+const path = require('path')
+
 module.exports = {
   siteMetadata: {
     title: "Mojility Inc.",
@@ -8,10 +10,32 @@ module.exports = {
     "theme",
     "gatsby-plugin-react-helmet",
     {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: "UA-526826-9",
+        head: false,
+        anonymize: true,
+        respectDNT: true
+      }
+    },
+    {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        defaultLayouts: { default: path.resolve('./src/components/layout.js') },
+      },
+    },
+    {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
         path: `${__dirname}/src/images`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `pages`,
+        path: path.resolve('./src/pages'),
       },
     },
     "gatsby-transformer-sharp",

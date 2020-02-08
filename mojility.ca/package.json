@@ -8,10 +8,10 @@
     "build": "gatsby build"
   },
   "dependencies": {
-    "theme": "1.0.0",
     "gatsby": "^2.19.10",
     "gatsby-background-image": "^0.9.13",
     "gatsby-image": "^2.2.39",
+    "gatsby-plugin-google-analytics": "^2.1.35",
     "gatsby-plugin-manifest": "^2.2.40",
     "gatsby-plugin-offline": "^3.0.33",
     "gatsby-plugin-react-helmet": "^3.1.21",
@@ -23,6 +23,10 @@
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-helmet": "^5.2.1"
+    "react-helmet": "^5.2.1",
+    "theme": "1.0.0",
+    "@mdx-js/mdx": "^1.5.5",
+    "@mdx-js/react": "^1.5.5",
+    "gatsby-plugin-mdx": "^1.0.70"
   }
 }
