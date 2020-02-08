@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "name": "mojility-sites",
+  "workspaces": [
+    "theme",
+    "mojility.ca",
+    "codingculture.io"
+  ],
+  "scripts": {}
+}
