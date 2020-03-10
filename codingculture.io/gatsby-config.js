@@ -4,7 +4,8 @@ module.exports = {
   siteMetadata: {
     title: "CodingCulture by Mojility Inc.",
     author: "Stacey Vetzal",
-    description: "Management consulting and technical practices coaching for the agile enterprise."
+    description: "Management consulting and technical practices coaching for the agile enterprise.",
+    social: []
   },
   plugins: [
     "theme",
@@ -38,6 +39,22 @@ module.exports = {
         path: path.resolve('./src/pages'),
       },
     },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `blog`,
+        path: path.resolve('./src/blog'),
+      },
+    },
+    // {
+    //   resolve: `gatsby-theme-blog-core`,
+    //   options: {
+    //     basePath: `/blog`,
+    //     contentPath: `src/blog/blog`,
+    //     assetPath: `src/blog/assets`,
+    //     mdx: true,
+    //   }
+    // },
     "gatsby-transformer-sharp",
     "gatsby-plugin-sharp",
     "gatsby-plugin-sass",
