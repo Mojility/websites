@@ -1,4 +1,13 @@
 AWSTemplateFormatVersion: '2010-09-09'
+
+Parameters:
+  DomainName:
+    Type: String
+    Default: mojility.ca
+  TTL:
+    Type: Number
+    Default: 900
+
 Outputs:
   DomainName:
     Description: Public endpoint for website
@@ -53,3 +62,89 @@ Resources:
             DomainName: !GetAtt SiteBucket.DomainName
             S3OriginConfig:
               OriginAccessIdentity: !Sub 'origin-access-identity/cloudfront/${CloudFrontOriginAccessIdentity}'
+
+  MojilityZone:
+    Type: AWS::Route53::HostedZone
+    Properties:
+      Name: !Ref DomainName
+
+  MojilityZoneMXRecordSet:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref MojilityZone
+      Name: !Ref DomainName
+      Type: MX
+      TTL: !Ref TTL
+      ResourceRecords:
+        - 10 mojility-ca.mail.protection.outlook.com.
+
+  MojilityZoneApexAliasRecordSet:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref MojilityZone
+      Name: !Ref DomainName
+      Type: A
+      AliasTarget:
+        DNSName: !GetAtt SiteCDN.DomainName
+        HostedZoneId: Z2FDTNDATAQYW2 # Hardcoded AWS Standard
+
+  MojilityZoneWwwAliasRecordSet:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref MojilityZone
+      Name: !Sub "www.${DomainName}"
+      Type: A
+      AliasTarget:
+        DNSName: !GetAtt SiteCDN.DomainName
+        HostedZoneId: Z2FDTNDATAQYW2 # Hardcoded AWS Standard
+
+  MojilityZoneShopcoRecordSet:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref MojilityZone
+      Name: !Sub "domains.${DomainName}"
+      Type: CNAME
+      TTL: !Ref TTL
+      ResourceRecords:
+        - "freshsand.shopco.com."
+
+  MojilityZonePogRecordSet:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref MojilityZone
+      Name: !Sub "pog.${DomainName}"
+      Type: CNAME
+      TTL: !Ref TTL
+      ResourceRecords:
+        - "d6me28w5qrekv.cloudfront.net."
+
+  MojilityZoneDomainKeyRecordSet:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref MojilityZone
+      Name: !Sub "k1._domainkey.${DomainName}"
+      Type: CNAME
+      TTL: !Ref TTL
+      ResourceRecords:
+        - "dkim.mcsv.net."
+
+  MojilityZoneSpfRecordSet:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref MojilityZone
+      Name: !Ref DomainName
+      Type: TXT
+      TTL: !Ref TTL
+      ResourceRecords:
+        - "\"v=spf1 include:spf.protection.outlook.com include:servers.mcsv.net -all\""
+
+  MojilityZoneAutodiscoverRecordSet:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref MojilityZone
+      Name: !Sub "autodiscover.${DomainName}"
+      Type: CNAME
+      TTL: !Ref TTL
+      ResourceRecords:
+        - "autodiscover.outlook.com."
+
